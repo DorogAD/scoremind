@@ -5,63 +5,51 @@
 
 {% block content %}
 
-    <section class="bg-text-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="bg-text">
-                        <h3>scoremind content</h3>
+<!-- Example split danger button -->
+<div class="btn-group">
+    <button type="button" class="btn btn-danger">Action</button>
+    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Separated link</a>
+    </div>
+</div>
+
+<section class="bg-text-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="bg-text">
+                    <h3>scoremind content</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="blog-post-area">
+    <div class="container">
+        <div class="row">
+            <div class="blog-post-area-style">
+                {% for game in game %}
+                <h3>GAMES HERE</h3>
+                <div class="col-md-3">
+                    <div class="single-post">
+                        <h3><a href="{{ book.get_absolute_url }}">{{ game.game_title }}</a></h3>
+                        <h4><h3><a href="{{ book.get_absolute_url }}">{{ game.game_attr }}</a></h3></h4>
+                        {% comment %}<h4><span>Добавлено: {{ episode.episode_date:"d.m.Y" }}</span></h4>{% endcomment %}
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
-    </section>
-
-    <section class="blog-post-area">
-        <div class="container">
-            <div class="row">
-                <div class="blog-post-area-style">
-                    {% for book in books %}
-                        <div class="col-md-3">
-                            <div class="single-post">
-                                {% if book.photo %}
-                                    <img src="{{ book.photo.url }}" alt="{{ book.title }}">
-                                {% else %}
-                                    <img src="{% static 'img/no-image.jpg' %}" alt="{{ book.title }}">
-                                {% endif %}
-                                <h3><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h3>
-                                <h4><h3><a href="{{ book.get_absolute_url }}">{{ book.author }}</a></h3></h4>
-                                <h4><span>Владелец: <span class="author-name">{{ book.owner }}</span></span>
-                                </h4>
-                                <p>{{ book.content|truncatewords_html:20|safe }}</p>
-                                <h4><span>Добавлено: {{ book.created_at|date:"d.m.Y" }}</span></h4>
-
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        {% if page_obj.has_other_pages %}
-            <div class="pegination">
-                <div class="nav-links">
-
-                    {% for p in page_obj.paginator.page_range %}
-                        {% if page_obj.number == p %}
-                            <span class="page-numbers current">{{ p }}</span>
-                        {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
-                            <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
-                        {% endif %}
-                    {% endfor %}
-
-                    {% if page_obj.has_next %}
-                        <a class="page-numbers" href="?page={{ page_obj.next_page_number }}"><i
-                                class="fa fa-angle-right" aria-hidden="true"></i></a>
-                    {% endif %}
-                </div>
-            </div>
-        {% endif %}
-
-    </section>
+    </div>
+</section>
 
 {% endblock %}
